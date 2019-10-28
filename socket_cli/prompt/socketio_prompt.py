@@ -59,7 +59,7 @@ class SocketIOPrompt(object):
             try:
                 text = self.prompt_session.prompt(self.get_prompt_message(), style=self.get_style(), rprompt=self.get_rprompt)
             except KeyboardInterrupt:
-                spinner.stop()
+                self.socket.terminate()
                 return
         if not text.strip():
             return

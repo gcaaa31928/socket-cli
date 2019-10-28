@@ -56,14 +56,18 @@ class Socket(object):
     def emit(self, options):
         event = options.event
         data = options.data
+        namespace = options.namespace or '/'
         try:
             data = json.loads(data)
         except ValueError:
             pass
-        self.sio.emit(event, data)
+        self.sio.emit(event, data, namespace)
 
     def on(self, options):
         self.event = options.event
         self.namespace = options.namespace or '/'
-        self.sio.on(self.event, self.on_message)
+        self.sio.on(self.event, self.on_message, self.namespace)
         spinner.start()
+
+    def terminate(self):
+        spinner.stop()
