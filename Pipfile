@@ -9,11 +9,12 @@ pytest = "*"
 [packages]
 click = "==7.0"
 prompt_toolkit = "==2.0.10"
-requests = "*"
 fuzzyfinder = "*"
 python-socketio = {extras = ["client"],version = "*"}
 pygments = "*"
 halo = "*"
+websockets = "*"
+asyncio = "*"
 
 [requires]
 python_version = "3.7"

@@ -5,6 +5,8 @@ import click
 import traceback
 from urllib.parse import urlparse
 from .prompt.socketio_prompt import SocketIOPrompt
+from .prompt.websocket_prompt import WebSocketPrompt
+from .prompt.unix_socket_prompt import UnixSocketPrompt
 from .commands.command import argparse
 from .logger import get_logger
 
@@ -17,10 +19,13 @@ def cli(path):
     url = urlparse(path)
     if url.scheme == 'http':
         prompt = SocketIOPrompt(path)
+    elif url.scheme == 'ws':
+        prompt = WebSocketPrompt(path)
+    else:
+        prompt = UnixSocketPrompt(path)
     while True:
         try:
             prompt.run_cli()
-
         except argparse.ArgumentError as ex:
             self.logger.debug('Error: %r.', ex)
             self.logger.error("traceback: %r", traceback.format_exc())
@@ -28,9 +33,9 @@ def cli(path):
 
         except EOFError:
             # exit out of the CLI
+            prompt.terminate()
             break
 
-        # TODO: uncomment for release
         except Exception as ex:
             logger.debug('Exception: %r.', ex)
             logger.error("traceback: %r", traceback.format_exc())

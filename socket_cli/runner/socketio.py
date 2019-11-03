@@ -1,23 +1,15 @@
-from ..options.socket_option import COMMANDS, COMMAND_OPTS, COMMAND_LENGTH
+from ..options.socketio_option import COMMANDS, COMMAND_OPTS, COMMAND_LENGTH
 from ..commands.command import Command
-from ..logger import get_logger
-from halo import Halo
+from .runner import Runner
 import socketio
 import json
 import click
 
-logger = get_logger()
-spinner = Halo(text='Receiving', spinner='dots')
-
-class Socket(object):
+class SocketIO(Runner):
     def __init__(self, url):
-        self.command = Command()
-        self.url = url
-        self.status = 'disconnected'
-        self.receive = False
+        super().__init__(url)
         self.sio = socketio.Client()
         self.sio.on('connect', self.on_connect)
-
 
     def execute(self, command, params=None):
         command_list = COMMAND_OPTS[command] if command in COMMAND_OPTS else None
@@ -32,18 +24,15 @@ class Socket(object):
         elif command == 'on':
             self.on(options)
 
-    def get_status(self):
-        return self.status
-
     def on_connect(self):
         self.status = 'connected'
-        logger.debug('connected');
+        self.logger.debug('connected');
 
     def on_message(self, msg):
         del self.sio.handlers[self.namespace][self.event]
-        spinner.stop()
+        self.spinner.stop()
         click.echo_via_pager(json.dumps(msg))
-        logger.debug('receive {}'.format(msg))
+        self.logger.debug('receive {}'.format(msg))
 
 
     def connect(self):
@@ -67,7 +56,11 @@ class Socket(object):
         self.event = options.event
         self.namespace = options.namespace or '/'
         self.sio.on(self.event, self.on_message, self.namespace)
-        spinner.start()
+        self.spinner.start()
+
+    def stop(self):
+        super().stop()
 
     def terminate(self):
-        spinner.stop()
+        super().terminate()
+        self.sio.disconnect()

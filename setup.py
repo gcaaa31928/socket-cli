@@ -1,20 +1,45 @@
-from pipenv.project import Project
-from pipenv.utils import convert_deps_to_pip
-from setuptools import setup
+from socket_cli.__init__ import __version__
+
+try:
+    from setuptools import setup, find_packages
+except ImportError:
+    from distutils.core import setup
+
+install_requirements = [
+    'click >= 7.0',
+    'prompt_toolkit>=2.0.10',
+    'fuzzyfinder>=2.1.0',
+    'python-socketio>=4.3.1',
+    'pygments>=2.4.2',
+    'halo>=0.0.28',
+    'websockets>=8.1',
+    'asyncio>=3.4.3'
+]
 
 setup(
-     name='PackageName',
-     version='0.1.0',
-     author='An Awesome Coder',
-     author_email='aac@example.com',
-     packages=['socket_cli'],
-     scripts=['bin/script1','bin/script2'],
+     name='socket-cli',
+     version=__version__,
+     author='gcaaa31928',
+     author_email='gcaaa31928@gmail.com',
+     packages=find_packages(),
+     description="CLI for SocketIO, WebSocket, Unix-Socket. With auto-completion and syntax highlighting.",
+     entry_points={
+         'console_scripts': ['socket-cli = socket_cli.main:cli'],
+     },
      url='http://pypi.python.org/pypi/PackageName/',
      license='LICENSE.txt',
-     description='An awesome package that does something',
      long_description=open('README.md').read(),
-     install_requirements = [
-         'click >= 7.0',
-         'prompt_toolkit>=2.0.6',
-     ],
+     install_requirements = install_requirements,
+     classifiers=[
+        'Intended Audience :: Developers',
+        'Development Status :: 3 - Alpha',
+        'Operating System :: Unix',
+        'Topic :: Software Development',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+     ]
  )
