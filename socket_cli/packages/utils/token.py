@@ -40,24 +40,13 @@ def find_directory_matches(word):
         if suggestion:
             yield Completion(suggestion, position)
 
-def split_command_and_args(tokens, command_length):
-    """
-    Take all tokens from command line, return command part and args part.
-    Command can be more than 1 words.
-    :param tokens: list
-    :return: tuple of (string, list)
-    """
+def split_command_and_args(tokens):
     command, args = None, None
     if tokens:
-        length = 1
-        for cmd_name in command_length:
-            if ' '.join(tokens).startswith(cmd_name):
-                length = command_length[cmd_name]
-                break
-        command = ' '.join(tokens[:length])
-        args = tokens[length:] if len(tokens) >= length else None
-        opts = [] 
-        for token in tokens[length:]:
+        command = tokens[0]
+        args = tokens[1:] if len(tokens) >= 1 else None
+        opts = []
+        for token in tokens[1:]:
             if '--' in token:
                 opts.append(token)
 

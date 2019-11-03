@@ -16,7 +16,7 @@ class CommandList(object):
 
     def get_all_options(self):
         for option in self.arr:
-            argv = ['--' + option.name]
+            argv = [option.name]
             kwargs = {
                 #'type': option.type,
                 'default': option.default
@@ -24,11 +24,8 @@ class CommandList(object):
             yield { 'argv': argv, 'kwargs': kwargs }
 
 class CommandOption(object):
-    def __init__(self, name, type, default=None):
+    def __init__(self, name, type=None, default=None, desc=None):
         self.name = name
         self.type = type
         self.default = default
-
-    @property
-    def arg_name(self):
-        return '--' + self.name
+        self.desc = desc

@@ -4,11 +4,11 @@ from __future__ import unicode_literals
 import click
 import traceback
 from urllib.parse import urlparse
-from .prompt.socketio_prompt import SocketIOPrompt
-from .prompt.websocket_prompt import WebSocketPrompt
-from .prompt.unix_socket_prompt import UnixSocketPrompt
-from .commands.command import argparse
-from .logger import get_logger
+from .packages.prompt.socketio_prompt import SocketIOPrompt
+from .packages.prompt.websocket_prompt import WebSocketPrompt
+from .packages.prompt.unix_socket_prompt import UnixSocketPrompt
+from .packages.commands.command import argparse
+from .packages.logger import get_logger
 
 
 logger = get_logger()

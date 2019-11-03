@@ -59,7 +59,7 @@ class Prompt(object):
             return
         try:
             tokens = safe_split(text) if text else ['']
-            command, params, _ = split_command_and_args(tokens, self.completer.command_length)
+            command, params, _ = split_command_and_args(tokens)
             self.runner.execute(command, params)
         except KeyboardInterrupt:
             self.runner.stop()

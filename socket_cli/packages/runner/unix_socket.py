@@ -1,4 +1,4 @@
-from ..options.websocket_option import COMMANDS, COMMAND_OPTS, COMMAND_LENGTH
+from ..options.websocket_option import COMMANDS, COMMAND_OPTS
 from ..commands.command import Command
 from .runner import Runner
 import asyncio

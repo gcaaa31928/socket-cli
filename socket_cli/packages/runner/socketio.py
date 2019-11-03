@@ -1,4 +1,4 @@
-from ..options.socketio_option import COMMANDS, COMMAND_OPTS, COMMAND_LENGTH
+from ..options.socketio_option import COMMANDS, COMMAND_OPTS
 from ..commands.command import Command
 from .runner import Runner
 import socketio
@@ -14,7 +14,6 @@ class SocketIO(Runner):
     def execute(self, command, params=None):
         command_list = COMMAND_OPTS[command] if command in COMMAND_OPTS else None
         options = self.command.parse_command_options(command_list, params)
-
         if command == 'connect':
             self.connect()
         elif command == 'disconnect':

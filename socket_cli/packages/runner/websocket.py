@@ -1,4 +1,4 @@
-from ..options.websocket_option import COMMANDS, COMMAND_OPTS, COMMAND_LENGTH
+from ..options.websocket_option import COMMANDS, COMMAND_OPTS
 from ..commands.command import Command
 from .runner import Runner
 import asyncio
@@ -13,8 +13,8 @@ class WebSocket(Runner):
     def execute(self, command, params=None):
         command_list = COMMAND_OPTS[command] if command in COMMAND_OPTS else None
         options = self.command.parse_command_options(command_list, params)
-        self.loop = asyncio.get_event_loop()
 
+        self.loop = asyncio.get_event_loop()
         if command == 'connect':
             self.loop.run_until_complete(self.connect())
         elif command == 'send':
@@ -40,5 +40,7 @@ class WebSocket(Runner):
         self.status = 'connected'
 
     def stop(self):
+        if not hasattr(self, 'loop'):
+            return
         self.loop.stop()
         self.spinner.stop()

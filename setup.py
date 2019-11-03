@@ -6,12 +6,12 @@ except ImportError:
     from distutils.core import setup
 
 install_requirements = [
-    'click >= 7.0',
+    'click>=4.0',
     'prompt_toolkit>=2.0.10',
     'fuzzyfinder>=2.1.0',
     'python-socketio>=4.3.1',
     'pygments>=2.4.2',
-    'halo>=0.0.28',
+    'halo',
     'websockets>=8.1',
     'asyncio>=3.4.3'
 ]
@@ -29,7 +29,7 @@ setup(
      url='http://pypi.python.org/pypi/PackageName/',
      license='LICENSE.txt',
      long_description=open('README.md').read(),
-     install_requirements = install_requirements,
+     install_requires=install_requirements,
      classifiers=[
         'Intended Audience :: Developers',
         'Development Status :: 3 - Alpha',
