@@ -2,12 +2,15 @@ from prompt_toolkit import PromptSession
 from prompt_toolkit.styles import Style
 from prompt_toolkit.completion import DynamicCompleter
 from prompt_toolkit.lexers import PygmentsLexer
+from prompt_toolkit.history import FileHistory
+from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
 from pygments.lexers.data import JsonBareObjectLexer
 from ..completer.completer import PromptCompleter
 from ..logger import get_logger
 from ..commands.command_options import CommandList, CommandOption
 from ..utils.token import safe_split, split_command_and_args
 from halo import Halo
+import os
 
 logger = get_logger()
 
@@ -29,6 +32,7 @@ class Prompt(object):
         self.prompt_session = PromptSession(
             lexer=PygmentsLexer(JsonBareObjectLexer),
             completer=DynamicCompleter(lambda: self.completer),
+            history=FileHistory(os.path.expanduser('~/.socket-cli.history'))
         )
 
     def get_prompt_message(self):
@@ -51,7 +55,7 @@ class Prompt(object):
 
     def run_cli(self):
         try:
-            text = self.prompt_session.prompt(self.get_prompt_message(), style=self.get_style(), rprompt=self.get_rprompt)
+            text = self.prompt_session.prompt(self.get_prompt_message(), style=self.get_style(), rprompt=self.get_rprompt, auto_suggest=AutoSuggestFromHistory())
         except KeyboardInterrupt:
             self.runner.stop()
             return

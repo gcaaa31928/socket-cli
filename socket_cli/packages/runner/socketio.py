@@ -15,7 +15,7 @@ class SocketIO(Runner):
         command_list = COMMAND_OPTS[command] if command in COMMAND_OPTS else None
         options = self.command.parse_command_options(command_list, params)
         if command == 'connect':
-            self.connect()
+            self.connect(options)
         elif command == 'disconnect':
             self.disconnect()
         elif command == 'emit':
@@ -33,9 +33,9 @@ class SocketIO(Runner):
         click.echo_via_pager(json.dumps(msg))
         self.logger.debug('receive {}'.format(msg))
 
-
-    def connect(self):
-        self.sio.connect(self.url)
+    def connect(self, options):
+        self.namespace = options.namespace or '/'
+        self.sio.connect(self.url, namespaces=[self.namespace])
 
     def disconnect(self):
         self.sio.disconnect()

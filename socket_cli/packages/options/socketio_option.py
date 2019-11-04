@@ -9,6 +9,9 @@ COMMAND_OPTS = {
     'on': CommandList([
         CommandOption('--event', 'string', desc='event name'),
         CommandOption('--namespace', 'string', default='/', desc='different endpoints or paths')
+    ]),
+    'connect': CommandList([
+        CommandOption('--namespace', 'string', default='/', desc='different endpoints or paths')
     ])
 }
 
