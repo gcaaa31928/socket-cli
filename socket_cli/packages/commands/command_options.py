@@ -19,9 +19,10 @@ class CommandList(object):
             argv = [option.name]
             kwargs = {
                 #'type': option.type,
-                'default': option.default
+                "default": option.default
             }
-            yield { 'argv': argv, 'kwargs': kwargs }
+            yield {"argv": argv, "kwargs": kwargs}
+
 
 class CommandOption(object):
     def __init__(self, name, type=None, default=None, desc=None):

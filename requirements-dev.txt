@@ -7,3 +7,4 @@ halo
 websockets>=8.1
 asyncio>=3.4.3
 requests
+black

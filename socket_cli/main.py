@@ -11,8 +11,9 @@ from .packages.prompt.factory import CreatePrompt
 
 logger = get_logger()
 
-@click.argument('path', default='', nargs=1)
-@click.option('-t', '--type', default=None, help='[websocket, socketio, unix]')
+
+@click.argument("path", default="", nargs=1)
+@click.option("-t", "--type", default=None, help="[websocket, socketio, unix]")
 @click.command()
 def cli(path, type):
     prompt = CreatePrompt(type, path)
@@ -20,9 +21,9 @@ def cli(path, type):
         try:
             prompt.run_cli()
         except argparse.ArgumentError as ex:
-            self.logger.debug('Error: %r.', ex)
+            self.logger.debug("Error: %r.", ex)
             self.logger.error("traceback: %r", traceback.format_exc())
-            click.secho(ex.msg, fg='red')
+            click.secho(ex.msg, fg="red")
 
         except EOFError:
             # exit out of the CLI
@@ -30,9 +31,10 @@ def cli(path, type):
             break
 
         except Exception as ex:
-            logger.debug('Exception: %r.', ex)
+            logger.debug("Exception: %r.", ex)
             logger.error("traceback: %r", traceback.format_exc())
-            click.secho(str(ex), fg='red')
+            click.secho(str(ex), fg="red")
+
 
 if __name__ == "__main__":
     cli()

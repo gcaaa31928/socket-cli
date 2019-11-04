@@ -1,11 +1,14 @@
 from prompt_toolkit.completion import Completion
 import fuzzyfinder
 
+
 def find_collection_matches(word, options, fuzzy):
     if options is None:
         return []
     if fuzzy:
-        for suggestion in fuzzyfinder.fuzzyfinder(word, options, accessor=lambda x: x.name):
+        for suggestion in fuzzyfinder.fuzzyfinder(
+            word, options, accessor=lambda x: x.name
+        ):
             yield Completion(suggestion.name, -len(word), display_meta=suggestion.desc)
     else:
         for option in sorted(options, key=lambda x: x.name):

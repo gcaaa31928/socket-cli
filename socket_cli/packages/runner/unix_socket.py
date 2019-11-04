@@ -7,7 +7,8 @@ import click
 import json
 import socket
 
-BUFF_SIZE=1024
+BUFF_SIZE = 1024
+
 
 class UnixSocket(Runner):
     def __init__(self, path):
@@ -19,25 +20,25 @@ class UnixSocket(Runner):
         command_list = COMMAND_OPTS[command] if command in COMMAND_OPTS else None
         options = self.command.parse_command_options(command_list, params)
 
-        if command == 'connect':
+        if command == "connect":
             self.connect()
-        elif command == 'send':
+        elif command == "send":
             self.send(options)
 
     def get_status(self):
         return self.status
 
     def send(self, options):
-        self.sock.sendall(options.data.encode('utf-8'))
+        self.sock.sendall(options.data.encode("utf-8"))
         result = self.recvall()
         print(result)
 
     def connect(self):
         self.sock.connect(self.path)
-        self.status = 'connected'
+        self.status = "connected"
 
     def recvall(self):
-        data = b''
+        data = b""
         while True:
             recv_data = self.sock.recv(BUFF_SIZE)
             data += recv_data

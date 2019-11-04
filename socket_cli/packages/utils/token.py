@@ -1,12 +1,14 @@
 from prompt_toolkit.completion import Completion
 import shlex
 
+
 def safe_split(text):
     try:
         words = shlex.split(text)
         return words
     except:
         return [text]
+
 
 def get_tokens(text):
     if text is not None:
@@ -15,6 +17,7 @@ def get_tokens(text):
         return words
     return []
 
+
 def last_token(text):
     if text is not None:
         text = text.strip()
@@ -22,7 +25,8 @@ def last_token(text):
             word = safe_split(text)[-1]
             word = word.strip()
             return word
-    return ''
+    return ""
+
 
 def find_filepath_matches(word):
     base_path, last_path, position = parse_path(word)
@@ -32,6 +36,7 @@ def find_filepath_matches(word):
         if suggestion:
             yield Completion(suggestion, position)
 
+
 def find_directory_matches(word):
     base_dir, last_dir, position = parse_path(word)
     dirs = list_dir(word, dirs_only=True)
@@ -40,6 +45,7 @@ def find_directory_matches(word):
         if suggestion:
             yield Completion(suggestion, position)
 
+
 def split_command_and_args(tokens):
     command, args = None, None
     if tokens:
@@ -47,7 +53,7 @@ def split_command_and_args(tokens):
         args = tokens[1:] if len(tokens) >= 1 else None
         opts = []
         for token in tokens[1:]:
-            if '--' in token:
+            if "--" in token:
                 opts.append(token)
 
     return command, args, opts

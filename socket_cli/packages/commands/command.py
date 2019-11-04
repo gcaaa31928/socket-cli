@@ -1,10 +1,14 @@
 import argparse
 
-class ArgumentParserError(Exception): pass
+
+class ArgumentParserError(Exception):
+    pass
+
 
 class ThrowingArgumentParser(argparse.ArgumentParser):
     def error(self, message):
         raise ArgumentParserError(message)
+
 
 class Command(object):
     def __init__(self):
@@ -16,6 +20,5 @@ class Command(object):
 
         self.parser = ThrowingArgumentParser()
         for opt in command_list.get_all_options():
-            self.parser.add_argument(*opt['argv'], **opt['kwargs'], nargs='?')
+            self.parser.add_argument(*opt["argv"], **opt["kwargs"], nargs="?")
         return self.parser.parse_args(params)
-

@@ -6,6 +6,7 @@ import websockets
 import click
 import json
 
+
 class WebSocket(Runner):
     def __init__(self, url):
         super().__init__(url)
@@ -15,11 +16,11 @@ class WebSocket(Runner):
         options = self.command.parse_command_options(command_list, params)
 
         self.loop = asyncio.get_event_loop()
-        if command == 'connect':
+        if command == "connect":
             self.loop.run_until_complete(self.connect())
-        elif command == 'send':
+        elif command == "send":
             self.loop.run_until_complete(self.send(options))
-        elif command == 'recv':
+        elif command == "recv":
             self.loop.run_until_complete(self.recv())
 
     def get_status(self):
@@ -31,16 +32,15 @@ class WebSocket(Runner):
         self.spinner.stop()
         click.echo_via_pager(json.dumps(result))
 
-
     async def send(self, options):
         result = await self.websocket.send(options.data)
 
     async def connect(self):
         self.websocket = await websockets.connect(self.url)
-        self.status = 'connected'
+        self.status = "connected"
 
     def stop(self):
-        if not hasattr(self, 'loop'):
+        if not hasattr(self, "loop"):
             return
         self.loop.stop()
         self.spinner.stop()

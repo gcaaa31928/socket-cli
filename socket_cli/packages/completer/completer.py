@@ -2,8 +2,8 @@ from prompt_toolkit.completion import Completer, Completion
 from ..utils.token import safe_split, last_token, get_tokens, split_command_and_args
 from ..utils.find_matches import find_collection_matches
 
-class PromptCompleter(Completer):
 
+class PromptCompleter(Completer):
     def __init__(self, fuzzy, commands, command_opts):
         super().__init__()
         self.commands = commands
@@ -19,7 +19,11 @@ class PromptCompleter(Completer):
     def find_command_matches(self, command, word, command_opts, fuzzy=False):
         opts = []
         if command in self.command_opts:
-            opts = [ opt for opt in self.command_opts[command] if opt.name not in command_opts ]
+            opts = [
+                opt
+                for opt in self.command_opts[command]
+                if opt.name not in command_opts
+            ]
         for suggestion in find_collection_matches(word, opts, fuzzy):
             yield suggestion
 
@@ -30,7 +34,8 @@ class PromptCompleter(Completer):
         command_name, _, command_opts = split_command_and_args(words)
         in_command = (len(words) > 1) or ((not word_before_cursor) and command_name)
         if in_command:
-            return self.find_command_matches(command_name, word_before_cursor, command_opts)
+            return self.find_command_matches(
+                command_name, word_before_cursor, command_opts
+            )
 
         return self.find_matches(word_before_cursor, self.commands, self.fuzzy)
-
