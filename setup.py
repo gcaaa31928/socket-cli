@@ -13,7 +13,8 @@ install_requirements = [
     'pygments>=2.4.2',
     'halo',
     'websockets>=8.1',
-    'asyncio>=3.4.3'
+    'asyncio>=3.4.3',
+    "requests"
 ]
 
 setup(
