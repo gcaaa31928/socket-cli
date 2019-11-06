@@ -53,12 +53,15 @@ or a unix socket server
 > on --event event_name
 ```
 
+## 🤝 Contributing
 
+Contributions, issues and feature requests are welcome.<br />
+Feel free to check [issues page](https://github.com/gcaaa31928/socket-cli/issues) and pull-request welcome.
 
 
 ## TODO
 - [ ] connect socket.io server with headers
-- [ ] unit-testing
+- [ ] unit-testing, ci
 
 
 ## Author
