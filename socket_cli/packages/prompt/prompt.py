@@ -60,12 +60,8 @@ class Prompt(object):
                 rprompt=self.get_rprompt,
                 auto_suggest=AutoSuggestFromHistory(),
             )
-        except KeyboardInterrupt:
-            self.runner.stop()
-            return
-        if not text.strip():
-            return
-        try:
+            if not text.strip():
+                return
             tokens = safe_split(text) if text else [""]
             command, params, _ = split_command_and_args(tokens)
             self.runner.execute(command, params)

@@ -4,6 +4,7 @@ from .runner import Runner
 import socketio
 import json
 import click
+import asyncio
 
 
 class SocketIO(Runner):
@@ -17,8 +18,6 @@ class SocketIO(Runner):
         options = self.command.parse_command_options(command_list, params)
         if command == "connect":
             self.connect(options)
-        elif command == "disconnect":
-            self.disconnect()
         elif command == "emit":
             self.emit(options)
         elif command == "on":
