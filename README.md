@@ -1,7 +1,7 @@
 <h1 align="center">Welcome to socket-cli 👋</h1>
 <p align="center">
   <img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dw/socket-cli">
-  <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/socket-cli">
+  <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/socket-cli?style=flat-square">
   <img alt="PyPI" src="https://img.shields.io/pypi/v/socket-cli">
 </p>
 
